@@ -1,10 +1,12 @@
 import React from 'react';
 import {Route, Switch, Redirect } from 'react-router-dom';
 import Layout from './hoc/Layout/Layout';
+import MainPage from "./components/MainPage/MainPage";
 import BurgerBuilder from '../src/containers/BurgerBuilder/BurgerBuilder';
 // import Checkout from "./containers/Checkout/Checkout";
 // import Orders from "./containers/Orders/Orders";
 // import Auth from "./containers/Auth/Auth";
+import ContactData from "./containers/Checkout/ContactData/ContactData";
 import Logout from "./containers/Auth/Logout/Logout";
 import {connect} from 'react-redux';
 import * as actions from './store/actions/index';
@@ -31,7 +33,8 @@ class App extends React.Component {
         let routes = (
             <Switch>
                 <Route path='/auth' component={asyncAuth}/>
-                <Route path='/' component={BurgerBuilder}/>
+                <Route path='/burgerBuilder' component={BurgerBuilder}/>
+                <Route path='/' component={MainPage}/>
                 <Redirect to='/'/>
             </Switch>
         );
@@ -39,11 +42,13 @@ class App extends React.Component {
         if (this.props.isAuthenticated) {
             routes = (
                 <Switch>
+                    <Route path='/checkout/contact-data' component={ContactData}/>
                     <Route path='/checkout' component={asyncCheckout}/>
                     <Route path='/orders' component={asyncOrders}/>
                     <Route path='/logout' component={Logout}/>
                     <Route path='/auth' component={asyncAuth}/>
-                    <Route path='/' component={BurgerBuilder}/>
+                    <Route path='/burgerBuilder' component={BurgerBuilder}/>
+                    <Route path='/' component={MainPage}/>
                     <Redirect to='/'/>
                 </Switch>
             );

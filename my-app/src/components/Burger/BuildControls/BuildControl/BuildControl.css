@@ -2,14 +2,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 5px 0;
+    margin: 2px 0;
 }
 
 .BuildControl button {
     display: block;
     font: inherit;
     padding: 5px;
-    margin: 0 5px;
+    margin: 0 2px;
     width: 80px;
     border: 1px solid #AA6817;
     cursor: pointer;
@@ -30,8 +30,9 @@
 }
 
 .Label {
+    text-shadow: 0 1px 1px #151114;
+    color: rgba(7, 2, 3, 0.85);
     padding: 10px;
-    font-weight: bold;
     width: 80px;
 }
 

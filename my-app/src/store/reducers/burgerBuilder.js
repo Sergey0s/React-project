@@ -3,7 +3,7 @@ import {updateObject} from "../../shared/utility";
 
 const initialState = {
     ingredients: null,
-    totalPrice: 4,
+    totalPrice: null,
     error: false,
     building: false
 };
@@ -46,7 +46,7 @@ const setIngredients = (state, action) => {
             cheese: action.ingredients.cheese,
             meat: action.ingredients.meat,
         },
-        totalPrice: 4,
+        totalPrice: action.totalPrice,
         error: false,
         building: false
     });
@@ -60,7 +60,7 @@ const burgerBuilder = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_INGREDIENT: return addIngredient (state, action);
         case actionTypes.REMOVE_INGREDIENT: return removeIngredient(state, action);
-        case actionTypes.SET_INGREDIENTS: return setIngredients(state, action);
+        case actionTypes.SET_INGREDIENTS_AND_PRICE: return setIngredients(state, action);
         case actionTypes.FETCH_INGREDIENTS_FAILED: return fetchIngredientsFailed(state,action);
         default: return state;
     }

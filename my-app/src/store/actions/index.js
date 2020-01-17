@@ -1,8 +1,11 @@
 export {
     addIngredient,
     removeIngredient,
-    initIngredients
+    initIngredients,
+    setIngredientsAndPrice
 } from './burgerBuilder';
+
+export { initBurgers } from './mainPage'
 
 export {
     purchaseBurger,

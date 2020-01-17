@@ -3,6 +3,7 @@ import axios from '../../axios-orders';
 // import order from "../../components/Order/Order";
 
 export const purchaseBurgerSuccess = (id, orderData) => {
+
     return {
         type: actionTypes.PURCHASE_BURGER_SUCCESS,
         orderId: id,
@@ -23,13 +24,13 @@ export const purchaseBurgerStart = () => {
     };
 };
 
-export const purchaseBurger = (orderData, token) => {
+export const purchaseBurger = (orderSummary, token) => {
     return dispatch => {
         dispatch(purchaseBurgerStart());
-        axios.post('/orders.json?auth=' + token, orderData) //only for Firebase
+        axios.post('http://localhost:3003/orders', {token, orderSummary})
             .then(response => {
                 console.log(response.data);
-                dispatch(purchaseBurgerSuccess(response.data.name, orderData))
+                dispatch(purchaseBurgerSuccess(response.data.name, orderSummary))
             })
             .catch(error => {
                 dispatch(purchaseBurgerFail(error))

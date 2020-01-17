@@ -1,0 +1,97 @@
+
+.burgersList {
+    width: 100%;
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+.burgerItem {
+    background-color: #d5ffdc;
+    padding: 16px;
+    margin: 8px;
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+}
+
+.createBurgerDiv {
+    width: 100%;
+    padding: 0px;
+    display: block;
+    margin: auto;
+    text-align: center;
+    color: #929292;
+}
+
+@media (max-width: 500px) and (min-height: 700px) {
+    .burgerItem {
+        height: 300px;
+    }
+}
+
+@media (max-width: 1000px) and (min-height: 700px) {
+    .burgerItem {
+        height: 500px;
+    }
+}
+
+.orderButton {
+    background-color: #DAD735;
+    outline: none;
+    cursor: pointer;
+    border: 1px solid #966909;
+    color: #966909;
+    font-family: inherit;
+    font-size: 1em;
+    padding: 12px 20px;
+    margin-top: 25px;
+    box-shadow: 2px 2px 2px #966909;
+}
+
+.orderButton:hover, .orderButton:active {
+    background-color: #A0DB41;
+    border: 1px solid #966909;
+    color: #966909;
+}
+
+.orderButton:not(:disabled) {
+    animation: enable 0.3s linear;
+}
+
+.createBurgerButton {
+    width: 40%;
+    height: 100%;
+    background-color: #DAD735;
+    outline: none;
+    cursor: pointer;
+    border: 1px solid #966909;
+    color: #966909;
+    font-family: inherit;
+    font-size: 1.5em;
+    padding: 12px 20px;
+    margin-top: 25px;
+    box-shadow: 2px 2px 2px #966909;
+}
+
+.createBurgerButton:hover, .createBurgerButton:active {
+    background-color: #A0DB41;
+    border: 1px solid #966909;
+    color: #966909;
+}
+
+.createBurgerButton:not(:disabled) {
+    animation: enable 0.3s linear;
+}
+
+@keyframes enable {
+    0% {
+        transform: scale(1);
+    }
+    60% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

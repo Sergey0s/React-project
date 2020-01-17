@@ -15,10 +15,11 @@ export const removeIngredient = (name) => {
     };
 };
 
-export const setIngredients = (ingredients) => {
+export const setIngredientsAndPrice = (ingredients, totalPrice) => {
     return {
-        type: actionTypes.SET_INGREDIENTS,
-        ingredients: ingredients
+        type: actionTypes.SET_INGREDIENTS_AND_PRICE,
+        ingredients: ingredients,
+        totalPrice: totalPrice
     };
 };
 
@@ -30,9 +31,10 @@ export const fetchIngredientsFailed = () => {
 
 export const initIngredients = () => {
     return dispatch => {
-        axios.get('/ingredients.json')
+        axios.get('http://localhost:3003/ingredients')
             .then(response => {
-                dispatch(setIngredients(response.data))
+                // console.log(response);
+                dispatch(setIngredientsAndPrice(response.data.ingredients, response.data.totalPrice))
             })
             .catch(err => {
                 dispatch(fetchIngredientsFailed())

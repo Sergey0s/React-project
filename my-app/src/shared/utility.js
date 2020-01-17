@@ -29,6 +29,11 @@ export const checkValidity = (value, rules) => {
         isValid = pattern.test(value) && isValid
     }
 
+    if (rules.isPassword) {
+        const pattern =/^(?=.*\d)(?=.*[a-zA-Z])(?!.*\s).{5,15}$/;
+        isValid = pattern.test(value) && isValid
+    }
+
     if (rules.isNumeric) {
         const pattern = /^\d+$/;
         isValid = pattern.test(value) && isValid

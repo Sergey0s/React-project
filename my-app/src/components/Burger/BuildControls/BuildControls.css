@@ -1,12 +1,21 @@
 .BuildControls {
     width: 100%;
-    background-color: #cf8f2e;
+    background-color: #d5ffdc;
     display: flex;
     flex-flow: column;
     align-items: center;
     box-shadow: 0 2px 1px #ccc;
     margin: auto;
-    padding: 10px 0;
+    padding: 12px 0 0 0;
+}
+
+.BuildControls_price {
+    text-shadow: 0 1px 1px #985425;
+color: rgba(147, 72, 0, 0.87);
+    font-weight: bold;
+    font-size: 1.5em;
+    margin: 1px;
+    padding: 0
 }
 
 
@@ -19,6 +28,7 @@
     font-family: inherit;
     font-size: 1.2em;
     padding: 15px 30px;
+    margin: 7px;
     box-shadow: 2px 2px 2px #966909;
 }
 
