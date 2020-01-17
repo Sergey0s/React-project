@@ -28,7 +28,6 @@ export const purchaseBurger = (orderSummary, token) => {
         dispatch(purchaseBurgerStart());
         axios.post('http://localhost:3003/orders', {token, orderSummary})
             .then(response => {
-                console.log(response.data);
                 dispatch(purchaseBurgerSuccess(response.data.name, orderSummary))
             })
             .catch(error => {
@@ -74,7 +73,6 @@ export const fetchOrders = (token, userId) => {
                         id: key
                     });
                 }
-                console.log(fetchedOrders)
                 dispatch(fetchOrdersSuccess(fetchedOrders));
             })
             .catch(err => {

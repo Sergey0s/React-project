@@ -44,8 +44,6 @@ class MainPage extends Component {
         let burger = !this.props.burgersDB ? <p>Ingredients can't be loaded</p> : <Spinner/>;
 
         if (this.props.burgersDB) {
-
-            console.log(this.props.burgersDB);
             this.props.burgersDB.map((burgerFromDB, index) => {
 
                 if (burgerFromDB.name === 'base') {
@@ -54,12 +52,7 @@ class MainPage extends Component {
                     burger = (
                             <div key={burgerFromDB.name} className={classes.burgerItem}>
                                 <Burger class={"preview"} ingredients={burgerFromDB.ingredients}/>
-                                {/*    // ordered={this.purchaseHandler}*/}
-                                {/*    // isAuth={this.props.isAuthenticated}*/}
-                                {/*    // price={this.props.price}*/}
                                 <BurgerInfo burgersDB={burgerFromDB}/>
-
-
                                 <button
                                     className={classes.orderButton}
                                     onClick={()=>this.purchaseContinueHandler(index)}
@@ -68,6 +61,7 @@ class MainPage extends Component {
                     )
                 }
                 burgersArr.push(burger);
+            return burgersArr
             })
         }
 

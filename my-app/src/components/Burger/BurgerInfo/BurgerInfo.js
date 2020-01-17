@@ -4,14 +4,11 @@ import classes from './BurgerInfo.css';
 
 
 const burgerInfo = (props) => {
-    console.log(props.burgersDB);
     let ingredients = '';
     for (let keys in props.burgersDB.ingredients) {
         let newIngredient = keys + ':  ' +  props.burgersDB.ingredients[keys] + '\n';
         ingredients += newIngredient;
-    }
-
-    console.log(ingredients);
+    };
 
     return (
         <Aux>

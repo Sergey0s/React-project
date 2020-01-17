@@ -21,7 +21,7 @@ const order = (props) => {
             key={ig.name}> {ig.name} ({ig.amount})</span>;
     });
 
-
+console.log(props.orderData)
     const ordersData = Object.entries(props.orderData);
 
     const orderDataOutput = ordersData.map(data => {
@@ -32,13 +32,16 @@ const order = (props) => {
                 margin: '0 8px',
                 padding: '5px'
             }}
-            key={data[0]}> {data[0]}: {data [1]} </span>;
+            key={data[0]}> {data[0]}: {data[1]} </span>;
     });
+
+    const orderDate = new Date(props.orderDate).toLocaleString();
 
     return (<div className={classes.Order}>
             <p> <span className={classes.order_span}>Ingredients: </span>{ingredientOutput} </p>
             <p> <span className={classes.order_span}>Price: USD</span> {Number.parseFloat(props.price).toFixed(2)} $</p>
             <p> <span className={classes.order_span}>Delivery data:</span> {orderDataOutput}</p>
+            <p> <span className={classes.order_span}>Order date:</span> {orderDate} </p>
         </div>
     )
 };

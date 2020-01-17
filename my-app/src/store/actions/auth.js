@@ -43,13 +43,11 @@ export const auth = (email, password, isSignUp) => {
         }
         axios.post(url, authData)
             .then(response => {
-                console.log(response.data);
                 localStorage.setItem('token', response.data.idToken);
                 localStorage.setItem('userId', response.data.LocalId);
                 dispatch(authSuccess(response.data.idToken, response.data.LocalId));
             })
             .catch(err => {
-                console.error(console.log(err.response.data));
                 dispatch(authFailed(err.response.data));
             })
     }

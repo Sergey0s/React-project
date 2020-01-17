@@ -18,7 +18,6 @@ export const initBurgers = () => {
     return dispatch => {
         axios.get('http://localhost:3003/burgers')
             .then(response => {
-                console.log(response);
                 dispatch(setBurgers(response.data))
             })
             .catch(err => {

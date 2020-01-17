@@ -33,7 +33,6 @@ export const initIngredients = () => {
     return dispatch => {
         axios.get('http://localhost:3003/ingredients')
             .then(response => {
-                // console.log(response);
                 dispatch(setIngredientsAndPrice(response.data.ingredients, response.data.totalPrice))
             })
             .catch(err => {
