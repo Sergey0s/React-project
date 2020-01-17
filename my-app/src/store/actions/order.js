@@ -1,6 +1,5 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-orders';
-// import order from "../../components/Order/Order";
 
 export const purchaseBurgerSuccess = (id, orderData) => {
 
@@ -50,7 +49,6 @@ export const fetchOrdersSuccess = (orders) => {
         orders: orders
     }
 };
-
 export const fetchOrdersFailed = (error) => {
     return {
         type: actionTypes.FETCH_ORDERS_FAILED,
@@ -67,8 +65,7 @@ export const fetchOrdersStart = () => {
 export const fetchOrders = (token, userId) => {
     return dispatch => {
         dispatch(fetchOrdersStart());
-        const queryParams='?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
-        axios.get('/orders.json' + queryParams)
+        axios.get('http://localhost:3003/orders')
             .then(res => {
                 const fetchedOrders = [];
                 for (let key in res.data) {
@@ -77,6 +74,7 @@ export const fetchOrders = (token, userId) => {
                         id: key
                     });
                 }
+                console.log(fetchedOrders)
                 dispatch(fetchOrdersSuccess(fetchedOrders));
             })
             .catch(err => {
