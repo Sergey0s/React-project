@@ -12,20 +12,40 @@ class Orders extends Component {
         this.props.onFetchOrders(this.props.token, this.props.userId);
     }
 
+    deleteOrderHandler = (orderId) => {
+        axios.post('http://localhost:3003/orders/delete?access_token='+ this.props.token, {orderId})
+            .then(res=> {
+                this.props.onFetchOrders(this.props.token, this.props.userId)})
+            .catch((err)=> console.log(err.response.data))
+    };
+
     render() {
+
         let orders = <Spinner/>;
         if (!this.props.loading) {
-            orders = (
-                this.props.orders.map((order) => {
-                    console.log(order)
-                    return <Order
-                        ingredients={order.ingredients}
-                        price={order.totalPrice}
-                        orderData = {order.orderData}
-                        orderDate = {order.createdAt}
-                        key={order.id}
-                    />
-                }))
+            if (!this.props.error) {
+                if (this.props.orders.length === 0) {
+                    orders = <p style={{margin: '80px'}}> No orders created yet. Make your first one ;) <br/> <a href='/'> Back to main page </a> </p>
+                } else {
+                    orders = (
+                        <div style={{marginTop: '80px'}}> {
+                            this.props.orders.map((order) => {
+                                return <Order
+                                    ingredients={order.ingredients}
+                                    price={order.totalPrice}
+                                    orderData={order.orderData}
+                                    orderDate={order.createdAt}
+                                    key={order._id}
+                                    clicked={()=>this.deleteOrderHandler(order._id)}
+                                />
+                            })
+                        }
+                        </div>
+                    )
+                }
+            } else {
+                orders = <p style={{margin: '80px'}}> {this.props.error} </p>
+            }
         }
         return (
             <div>
@@ -40,7 +60,8 @@ const mapStateToProps = state => {
         orders: state.order.orders,
         loading: state.order.loading,
         token: state.auth.token,
-        userId: state.auth.userId
+        userId: state.auth.userId,
+        error: state.auth.error
     }
 };
 

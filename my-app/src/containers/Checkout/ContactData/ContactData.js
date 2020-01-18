@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import * as actions from '../../../store/actions/index';
 import {checkValidity} from "../../../shared/utility";
+import {Redirect} from "react-router-dom";
 
 // import { updateObject} from '../../../shared/utility';
 
@@ -18,7 +19,7 @@ class ContactData extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Your Name'
+                    placeholder: 'Name'
                 },
                 value: '',
                 validation: {
@@ -27,40 +28,11 @@ class ContactData extends Component {
                 valid: false,
                 touched: false
             },
-            street: {
+            address: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Street'
-                },
-                value: '',
-                validation: {
-                    required: true
-                },
-                valid: false,
-                touched: false
-            },
-            zipCode: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Zip code'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    minLength: 5,
-                    maxLength: 6,
-                    isNumeric: true
-                },
-                valid: false,
-                touched: false
-            },
-            country: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Your Country'
+                    placeholder: 'Address'
                 },
                 value: '',
                 validation: {
@@ -73,14 +45,14 @@ class ContactData extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
-                    placeholder: 'Your E-mail'
+                    placeholder: 'E-mail'
                 },
-                value: '',
+                value: this.props.userEmail,
                 validation: {
                     required: true,
                     isEmail: true
                 },
-                valid: false,
+                valid: true,
                 touched: false
             },
             deliveryMethod: {
@@ -157,35 +129,46 @@ class ContactData extends Component {
             });
         }
 
-        let form = (
-            <div>
-                <h4> Enter your Contact Data </h4>
-                <form onSubmit={this.orderHandler}>
-                    {formElementArray.map(formElement => (
-                            <Input
-                                key={formElement.id}
-                                elementType={formElement.config.elementType}
-                                elementConfig={formElement.config.elementConfig}
-                                value={formElement.config.value}
-                                invalid={!formElement.config.valid}
-                                shouldValidate={formElement.config.validation}
-                                touched={formElement.config.touched}
-                                changed={(event) => this.inputChangedHandler(event, formElement.id)}/>
-                        )
-                    )}
-                    <Button
-                        btnType='Success'
-                        disabled={!this.state.formIsValid}
-                    > ORDER </Button>
-                </form>
-            </div>);
+        let form = <Redirect to="/"/>;
+
+        if (this.props.ings) {
+            form = (
+                <div>
+                    <h4> Enter your Contact Data </h4>
+                    <form onSubmit={this.orderHandler}>
+                        {formElementArray.map(formElement => (
+                                <Input
+                                    key={formElement.id}
+                                    elementType={formElement.config.elementType}
+                                    elementConfig={formElement.config.elementConfig}
+                                    value={formElement.config.value}
+                                    invalid={!formElement.config.valid}
+                                    shouldValidate={formElement.config.validation}
+                                    touched={formElement.config.touched}
+                                    changed={(event) => this.inputChangedHandler(event, formElement.id)}/>
+                            )
+                        )}
+                        <Button
+                            btnType='Success'
+                            disabled={!this.state.formIsValid}
+                        > ORDER </Button>
+                    </form>
+                </div>);
+        }
 
         if (this.props.loading) {
             form = <Spiner/>
         }
 
         if (this.props.purchased) {
-            form = <p> THANKS FOR YOUR ORDER ! </p>
+            form = (
+                <div>
+                    <p> THANKS FOR YOUR ORDER ! </p>
+                    <p> Our manager make you phone call for order confirmation </p>
+                    <a href='/'> Return to main page </a> or
+                    <a href='/orders'> Check our orders </a>
+                </div>
+            );
         }
 
         return (
@@ -203,6 +186,7 @@ const mapStateToProps = state => {
         loading: state.order.loading,
         token: state.auth.token,
         userId: state.auth.userId,
+        userEmail: state.auth.userEmail,
         purchased: state.order.purchased
     }
 };

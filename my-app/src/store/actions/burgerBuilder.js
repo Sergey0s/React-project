@@ -36,7 +36,7 @@ export const initIngredients = () => {
                 dispatch(setIngredientsAndPrice(response.data.ingredients, response.data.totalPrice))
             })
             .catch(err => {
-                dispatch(fetchIngredientsFailed())
+                dispatch(fetchIngredientsFailed(err.response.data))
             })
     };
 };

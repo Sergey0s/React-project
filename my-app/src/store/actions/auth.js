@@ -7,11 +7,12 @@ export const authStart = () => {
     };
 };
 
-export const authSuccess = (token, userId) => {
+export const authSuccess = (token, userId, userEmail) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         idToken: token,
-        userId: userId
+        userId: userId,
+        userEmail: userEmail
     };
 };
 
@@ -25,6 +26,7 @@ export const authFailed = (error) => {
 export const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
+    localStorage.removeItem('userEmail');
     return {
         type: actionTypes.AUTH_LOGOUT
     }
@@ -35,17 +37,19 @@ export const auth = (email, password, isSignUp) => {
         dispatch(authStart());
         const authData = {
             email: email,
-            password: password,
+            password: password
         };
         let url = 'http://localhost:3003/auth';
         if (!isSignUp) {
-            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCwexXImK-Nmg_K8gpL74HB-sOv9xpwVPM'
+            url = 'http://localhost:3003/login'
         }
         axios.post(url, authData)
             .then(response => {
+                console.log(response);
                 localStorage.setItem('token', response.data.idToken);
                 localStorage.setItem('userId', response.data.LocalId);
-                dispatch(authSuccess(response.data.idToken, response.data.LocalId));
+                localStorage.setItem('userEmail', response.data.userEmail);
+                dispatch(authSuccess(response.data.idToken, response.data.LocalId, response.data.userEmail));
             })
             .catch(err => {
                 dispatch(authFailed(err.response.data));
@@ -65,7 +69,8 @@ export const authCheckState = () => {
       const token = localStorage.getItem('token');
       if (token) {
           const userId = localStorage.getItem('userId');
-          dispatch(authSuccess(token,userId));
+          const userEmail = localStorage.getItem('userEmail');
+          dispatch(authSuccess(token,userId,userEmail));
       } else {
               dispatch(logout())
       }

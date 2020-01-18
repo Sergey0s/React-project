@@ -64,7 +64,7 @@ export const fetchOrdersStart = () => {
 export const fetchOrders = (token, userId) => {
     return dispatch => {
         dispatch(fetchOrdersStart());
-        axios.get('http://localhost:3003/orders')
+        axios.get('http://localhost:3003/orders?access_token='+ token)
             .then(res => {
                 const fetchedOrders = [];
                 for (let key in res.data) {
