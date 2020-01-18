@@ -16,7 +16,7 @@ class Orders extends Component {
         axios.post('http://localhost:3003/orders/delete?access_token='+ this.props.token, {orderId})
             .then(res=> {
                 this.props.onFetchOrders(this.props.token, this.props.userId)})
-            .catch((err)=> console.log(err.response.data))
+            .catch(err=> err.response.data)
     };
 
     render() {
